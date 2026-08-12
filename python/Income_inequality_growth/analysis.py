@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import statsmodels.api as sm
 from pathlib import Path
 
 # Baseline: Gini measured from 2010 to 2018
@@ -83,3 +84,21 @@ plt.show()
 correlation=analysis_data["gini"].corr(analysis_data["subsequent_growth"])
 print("\nCorrelation between Gini coefficient and subsequent growth:")
 print(correlation)
+
+#Baseline ordinay least squares regression 
+X=analysis_data["gini"]
+y=analysis_data["subsequent_growth"]
+X=sm.add_constant(X)
+model=sm.OLS(y,X).fit()
+print("\nBaseline OLS Regression Results:")
+print("\nCoefficients:")
+print(model.params)
+
+print("\nP-values:")
+print(model.pvalues)
+
+print("\nR-squared:")
+print(model.rsquared)
+
+print("\nConfidence intervals:")
+print(model.conf_int())
