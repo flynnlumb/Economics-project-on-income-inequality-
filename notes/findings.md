@@ -54,3 +54,9 @@ gini           -0.057029 -0.017906
 gdp_per_capita -0.000028 -0.000015
 
 After controlling for GDP per capita the estimated relationship between income inequality and subsequent 5 year average growth rate became negative and statistically significant(β=-0.0375 to 3sf and p<0.001). The 95% confidence interval ranges from -0.0570 to -0.0179, so the interval is negative for the estimated coefficient. The R² value increased to 0.0594 which indicates the controlled model explains more variance in the subsequent growth than the baseline, however it is still low at 5.94% and it remains an observational relationship and should not be interpreted as casual.
+
+5.Testing robustness of controlled regression
+-I found the correlation between Gini coefficient and GPP/capita in the same year to be
+0.373 which shows that in my sample, countries with a higher Gini coefficient tend to have a lower GDP per capita. However this is only a moderate negative correlation and so does not suggest a severe multicollinearity by itself.
+
+-I then ran a VIF test on the same two variables and got the value to be 1.53 which is a relatively low value and so suggests there is a low multicollinearity between the two variables. Therefore multicollineararity does not appear to be a major concern in the controlled regression.

@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from pathlib import Path
+from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 
 # Data folder
@@ -226,3 +227,21 @@ print("\nR-squared:")
 print(controlled_model.rsquared)
 print("\nConfidence intervals:")
 print(controlled_model.conf_int())
+
+#Correlation between Gini and GDP per capita
+
+correlation_gini_gdp = analysis_data["gini"].corr(analysis_data["gdp_per_capita"])
+print("\nCorrelation between Gini coefficient and GDP per capita:")
+print(correlation_gini_gdp)
+
+#Check for multicollinearity using Variance Inflation Factor (VIF)
+
+vif_data = analysis_data[["gini", "gdp_per_capita"]].copy()
+vif_results = pd.DataFrame()
+vif_results["Variable"] = vif_data.columns
+vif_results["VIF"] = [
+    variance_inflation_factor(vif_data.values, i)
+    for i in range(vif_data.shape[1])
+]
+print("\nVariance Inflation Factor (VIF) results:")
+print(vif_results)

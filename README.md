@@ -30,3 +30,4 @@ I initially established a baseline specification using Gini observations from 20
 I then calculated the pearsons correlation coefficient for the data and plotted it on a scatter graph finding the correlation coefficient to be -0.0474. 
 Next I calculated a baseling OLS regression model for the data where Subsequent Growth = β₀ + β₁Gini + ε
 I then calculated a controlled OLS regression using GDP/capita at the time the Gini coefficient was measured as a control where: β₀ + β₁Gini + β₂GDP per capita + ε , which allowed me to examine whether the relationship between inequality and subsequent growth changes when accounting for initial income levels.
+I then tested the correlation between Gini coefficients and initial GDP per capita to check for multicollinearity. After this I also calculated VIF's (Variance Inflation Factors) for the Gini coefficient and inital GDP per capita to more robustley check for multicollineararity.
