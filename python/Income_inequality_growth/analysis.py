@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 from pathlib import Path
 
 # Baseline: Gini measured from 2010 to 2018
@@ -66,5 +67,19 @@ print("Countries in final analysis dataset:",
 analysis_data.to_csv(data_folder / "analysis_data.csv", index=False)
 print("\nFinal analysis dataset saved to 'analysis_data.csv'")
 
+print("\nDescriptive statistics of the final analysis dataset:")
+print(analysis_data[["subsequent_growth", "gini"]].describe())
 
+plt.figure(figsize=(10, 6))
+plt.scatter(analysis_data["gini"], analysis_data["subsequent_growth"], alpha=0.6)
+plt.title("Income Inequality and Subsequent Economic Growth")
+plt.xlabel("Gini Coefficient")
+plt.ylabel("Average GDP per Capita Growth Over Following 5 Years")
+plt.grid(True,alpha=0.3)
+plt.show()
 
+#Pearsons correlation coefficient between gini coefficient and subsequent growth
+
+correlation=analysis_data["gini"].corr(analysis_data["subsequent_growth"])
+print("\nCorrelation between Gini coefficient and subsequent growth:")
+print(correlation)
