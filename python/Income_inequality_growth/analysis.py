@@ -8,8 +8,6 @@ START_YEAR = 2010
 END_YEAR = 2018
 GROWTH_YEARS = 5
 
-
-
 data_folder =Path(__file__).parent / "data"
 gini=pd.read_csv(data_folder / "gini_data.csv")
 growth=pd.read_csv(data_folder / "growth_data.csv")
@@ -24,6 +22,49 @@ print("\nGrowth data:")
 print(growth.head())
 print("\nGini observations:",len(gini))
 print("Growth observations:",len(growth))
+
+gini_baseline = gini[
+    gini["date"].between(START_YEAR, END_YEAR)
+].copy()
+
+print("\nBaseline Gini period:", START_YEAR, "to", END_YEAR)
+print("Baseline Gini observations:", len(gini_baseline))
+print("Countries in baseline sample:",
+      gini_baseline["countryiso3code"].nunique())
+
+growth_values = []
+for _, row in gini_baseline.iterrows():
+    country = row["countryiso3code"]
+    gini_year = row["date"]
+
+    following_growth = growth[
+        (growth["countryiso3code"] == country) &
+        (growth["date"] > gini_year) &
+        (growth["date"] <= gini_year + GROWTH_YEARS)
+    ]
+    if len(following_growth) == GROWTH_YEARS:
+        average_growth = following_growth["growth"].mean()
+    else:
+        average_growth = None
+
+    growth_values.append(average_growth)
+gini_baseline["subsequent_growth"]= growth_values
+
+print("\nBaseline dataset:")
+print(gini_baseline.head(10))
+
+print("\nObservations with subsequent growth:",
+      gini_baseline["subsequent_growth"].notna().sum())
+
+analysis_data = gini_baseline.dropna(subset=["subsequent_growth"]).copy()
+print("\nFinal analysis dataset:")
+print(analysis_data.head())
+print("\nFinal analysis dataset observations:", len(analysis_data))
+print("Countries in final analysis dataset:",
+      analysis_data["countryiso3code"].nunique())
+
+analysis_data.to_csv(data_folder / "analysis_data.csv", index=False)
+print("\nFinal analysis dataset saved to 'analysis_data.csv'")
 
 
 
