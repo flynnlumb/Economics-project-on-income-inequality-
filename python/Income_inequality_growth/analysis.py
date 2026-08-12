@@ -245,3 +245,34 @@ vif_results["VIF"] = [
 ]
 print("\nVariance Inflation Factor (VIF) results:")
 print(vif_results)
+
+#Check for influential observations using Cook's distance
+
+influence = controlled_model.get_influence()
+cooks_difference = influence.cooks_distance[0]
+analysis_data["cooks_distance"] = cooks_difference
+print("\nObservations with highest Cook's distance:")
+print(analysis_data[["countryiso3code","country", "date", "gini","gdp_per_capita","subsequent_growth", "cooks_distance"]].sort_values("cooks_distance", ascending=False).head(10))
+
+#Robustness check: exclude influential observations and re-run the controlled OLS regression
+
+influential_threshold = 4 / len(analysis_data)
+robust_data = analysis_data[analysis_data["cooks_distance"] < influential_threshold].copy()
+print("\nCooks distance threshold for influential observations:", influential_threshold)
+print("\nNumber of observations after excluding influential points:", len(robust_data))
+
+#Re-run controlled OLS regression on robust dataset
+
+X_robust = robust_data[["gini", "gdp_per_capita"]]
+X_robust = sm.add_constant(X_robust)
+y_robust = robust_data["subsequent_growth"]
+robust_model = sm.OLS(y_robust, X_robust).fit()
+print("\nControlled OLS Regression Results after excluding influential observations:")
+print("\nCoefficients:")
+print(robust_model.params)
+print("\nP-values:")
+print(robust_model.pvalues)
+print("\nR-squared:")
+print(robust_model.rsquared)
+print("\nConfidence intervals:")
+print(robust_model.conf_int())
