@@ -1,4 +1,5 @@
 import pandas as pd
+import requests 
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from pathlib import Path
@@ -9,6 +10,27 @@ from pathlib import Path
 START_YEAR = 2010
 END_YEAR = 2018
 GROWTH_YEARS = 5
+
+#Load control data 
+url = "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.CD?format=json&per_page=20000"
+gdp_response = requests.get(url)
+gdp_data = gdp_response.json()[1]
+gdp =pd.DataFrame(gdp_data)
+gdp = gdp[["countryiso3code","country","date","value"]].copy()
+gdp["country"] = gdp["country"].apply(
+    lambda x: x["value"] if isinstance(x, dict) else x
+)
+gdp=gdp.rename(columns={'value':'gdp_per_capita'})
+gdp["date"]=pd.to_numeric(gdp["date"], errors='coerce')
+gdp["gdp_per_capita"]=pd.to_numeric(gdp["gdp_per_capita"], errors='coerce')
+gdp=gdp.dropna(subset=["gdp_per_capita"])
+print("GDP per capita data:")
+print(gdp.head())
+print("\nGDP per capita observations:",len(gdp))
+
+gdp.to_csv("python/Income_inequality_growth/data/gdp_per_capita_data.csv", index=False)
+
+print("\nGDP per capita data saved.")
 
 data_folder =Path(__file__).parent / "data"
 gini=pd.read_csv(data_folder / "gini_data.csv")
