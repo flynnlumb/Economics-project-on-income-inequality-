@@ -12,3 +12,5 @@ Higher levels of income inequality are associated with lower subsequent economic
 This hypothesis is based on the possibility that greater income inequality may lead to worse access to education, healthcare and financial oppurtunities for lower-income consumers which as a result could reduce human capital accumulation and productive investment.
 
 However, this is not the only theoretical prediction and so the analysis will consider whether the evidence points towards a positive or conditional relationship instead. 
+
+3.Data:
