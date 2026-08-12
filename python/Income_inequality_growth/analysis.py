@@ -206,3 +206,23 @@ print(model.rsquared)
 
 print("\nConfidence intervals:")
 print(model.conf_int())
+
+#Controlled OLS regression
+#Controls for GDP per capita in the year of the Gini observation
+
+X=analysis_data[["gini", "gdp_per_capita"]]
+X = sm.add_constant(X)
+
+y=analysis_data["subsequent_growth"]
+
+controlled_model = sm.OLS(y, X).fit()
+
+print("\nControlled OLS Regression Results:")
+print("\nCoefficients:")
+print(controlled_model.params)
+print("\nP-values:")
+print(controlled_model.pvalues)
+print("\nR-squared:")
+print(controlled_model.rsquared)
+print("\nConfidence intervals:")
+print(controlled_model.conf_int())

@@ -23,3 +23,10 @@ The main variables are:
 The analysis uses GINI observations from 2010-2018 inclusive, with subsequent growth being measured as the average rate of real gdp/capita growth in the following five years.
 The final baseline dataset contains 754 country-year observations across 156 countries. 
 Any observation without a five year growth period were excluded from the data.
+
+4.Methodology
+
+I initially established a baseline specification using Gini observations from 2010-18. For each of these I measured subsequent economic growth as the average of the next five years year on year real gdp per capita. Observations without a complete five year period were excluded which produced a final baseline dataset of 754 entries across 156 countries.
+I then calculated the pearsons correlation coefficient for the data and plotted it on a scatter graph finding the correlation coefficient to be -0.0474. 
+Next I calculated a baseling OLS regression model for the data where Subsequent Growth = β₀ + β₁Gini + ε
+I then calculated a controlled OLS regression using GDP/capita at the time the Gini coefficient was measured as a control where: β₀ + β₁Gini + β₂GDP per capita + ε , which allowed me to examine whether the relationship between inequality and subsequent growth changes when accounting for initial income levels.

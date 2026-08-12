@@ -28,3 +28,29 @@ const  1.740128  3.116911
 gini  -0.031071  0.006293
 
 The regression finds no significant relationship between income inequality (Gini) and subsequent 5-year GDP growth (β = -0.012, p = 0.19). The 95% CI for the Gini coefficient spans zero (-0.031 to 0.006), so we can't rule out no effect at all. R²=0.00225 means Gini explains essentially none of the variance in growth. Overall this simple bivariate model shows no evidence that inequality predicts subsequent growth in this dataset.
+
+4.OLS Regression controlled for GDP/capita at time of Gini measurement: 
+Controlled OLS Regression Results:
+
+Coefficients:
+const             3.765998
+gini             -0.037468
+gdp_per_capita   -0.000021
+dtype: float64
+
+P-values:
+const             1.693724e-20
+gini              1.830143e-04
+gdp_per_capita    2.915967e-11
+dtype: float64
+
+R-squared:
+0.059354025719212555
+
+Confidence intervals:
+                       0         1
+const           2.992327  4.539670
+gini           -0.057029 -0.017906
+gdp_per_capita -0.000028 -0.000015
+
+After controlling for GDP per capita the estimated relationship between income inequality and subsequent 5 year average growth rate became negative and statistically significant(β=-0.0375 to 3sf and p<0.001). The 95% confidence interval ranges from -0.0570 to -0.0179, so the interval is negative for the estimated coefficient. The R² value increased to 0.0594 which indicates the controlled model explains more variance in the subsequent growth than the baseline, however it is still low at 5.94% and it remains an observational relationship and should not be interpreted as casual.
