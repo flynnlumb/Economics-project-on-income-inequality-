@@ -14,3 +14,12 @@ This hypothesis is based on the possibility that greater income inequality may l
 However, this is not the only theoretical prediction and so the analysis will consider whether the evidence points towards a positive or conditional relationship instead. 
 
 3.Data:
+
+This project uses data from the World Bank.
+The main variables are: 
+-GINI Index, which measures the distribution of income in society, with 0 being perfect equality and 100 being perfect inequality, used as my measure of income inequality
+-Real GDP/capita growth, which I'm using to measure subsequent economic growth
+
+The analysis uses GINI observations from 2010-2018 inclusive, with subsequent growth being measured as the average rate of real gdp/capita growth in the following five years.
+The final baseline dataset contains 754 country-year observations across 156 countries. 
+Any observation without a five year growth period were excluded from the data.
